@@ -5,8 +5,8 @@
 using namespace std;
 
 int main(){
-    ios::sync_with_stdio(false);        //이게 없으니까 런타임 에러가 뜨네
-    cin.tie(0);                         //이유가 뭐지?
+    ios::sync_with_stdio(false);      
+    cin.tie(0);                         
 
     int n =0, m=0;
     cin >> n >> m;
