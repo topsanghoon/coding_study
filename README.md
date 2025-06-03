@@ -41,7 +41,7 @@ LIG 넥스원 아카데미
 | 이름   | GitHub 주소                                                | 이메일 주소               |
 |--------|-------------------------------------------------------------|----------------------------|
 | 윤상훈 | [github.com/topsanghoon](https://github.com/topsanghoon)   | topsanghoon1@gmail.com     |
-| 김태현 |                                                             |                            |
+| 김태현 | [github.com/SnowMate318](https://github.com/SnowMate318)   | xogus5070318@gmail.com     |
 | 조재훈 |                                                             |                            |
 | 한제범 |                                                             |                            |
 
