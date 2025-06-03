@@ -7,6 +7,7 @@
 ### 숫자의 합 구하기(브4)
 
 [11720](https://www.acmicpc.net/problem/11720)
+https://www.acmicpc.net/problem/11720
 
 ### 평균 구하기(브1)
 
