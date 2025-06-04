@@ -129,6 +129,133 @@ void baek_10986(void) {
 	cout << answer << '\n';
 }
 
+void baek_2563(void) {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	int count = 0;
+	cin >> count;
+	int paper[100][100] = { 0, };
+	int x_pos = 0, y_pos = 0;
+	for (int i = 0; i < count; i++) {
+		cin >> x_pos >> y_pos;
+		for (int j = 0; j < 10; j++) {
+			for (int k = 0; k < 10; k++) {
+				paper[y_pos+j][x_pos+k] = 1;
+			}
+		}
+	}
+	int sum = 0;
+	for (int i = 0; i < 100; i++) {
+		for (int j = 0; j < 100;j++) {
+			if (paper[i][j]) {
+				sum += 1;
+			}
+		}
+	}
+	cout << sum << "\n";
+}
+
+void baek_2567(void) {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	int count = 0;
+	cin >> count;
+	int paper[100][100] = { 0, };
+	int x_pos = 0, y_pos = 0;
+	for (int i = 0; i < count; i++) {
+		cin >> x_pos >> y_pos;
+		for (int j = 0; j < 10; j++) {
+			for (int k = 0; k < 10; k++) {
+				paper[y_pos + j][x_pos + k] = 1;
+			}
+		}
+	}
+	/*for (int j = 0; j < 100; j++) {
+		for (int k = 0; k < 100; k++) {
+			cout << paper[j][k];
+		}
+		cout << "\n";
+	}*/
+	int sum = 0;
+	for (int i = 0; i < 100; i++) {
+		for (int j = 0; j < 100;j++) {
+			if (i == 0 || i == 99 || j == 0 || j == 99) {
+				if (paper[i][j] == 1) {
+					sum += 1;
+				}
+			}
+			else {
+				if (paper[i][j] == 1) {
+					if (paper[i - 1][j] == 0 || paper[i + 1][j] == 0 || paper[i][j - 1] == 0 || paper[i][j + 1] == 0) {
+						sum += 1;
+						if (paper[i - 1][j] == 0 && paper[i][j - 1] == 0) {
+							sum += 1;
+						}
+						else if (paper[i - 1][j] == 0 && paper[i][j + 1] == 0) {
+							sum += 1;
+						}
+						else if (paper[i + 1][j] == 0 && paper[i][j + 1] == 0) {
+							sum += 1;
+						}
+						else if (paper[i + 1][j] == 0 && paper[i][j - 1] == 0) {
+							sum += 1;
+						}
+					}
+
+				}
+			}
+		}
+	}
+	cout << sum << "\n";
+}
+
+void baek_temp_2567(void) {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	int count = 0;
+	cin >> count;
+	int paper[102][102] = { 0, };
+	int x_pos = 0, y_pos = 0;
+	for (int i = 0; i < count; i++) {
+		cin >> x_pos >> y_pos;
+		for (int j = 0; j < 10; j++) {
+			for (int k = 0; k < 10; k++) {
+				paper[y_pos + 1 + j][x_pos + 1 + k] = 1;
+			}
+		}
+	}
+	/*for (int j = 0; j < 100; j++) {
+		for (int k = 0; k < 100; k++) {
+			cout << paper[j][k];
+		}
+		cout << "\n";
+	}*/
+	int sum = 0;
+	for (int i = 0; i < 102; i++) {
+		for (int j = 0; j < 102;j++) {
+			if (paper[i][j] == 1) {
+				if (paper[i - 1][j] == 0 || paper[i + 1][j] == 0 || paper[i][j - 1] == 0 || paper[i][j + 1] == 0) {
+					sum += 1;
+					if (paper[i - 1][j] == 0 && paper[i][j - 1] == 0) {
+						sum += 1;
+					}
+					else if (paper[i - 1][j] == 0 && paper[i][j + 1] == 0) {
+						sum += 1;
+					}
+					else if (paper[i + 1][j] == 0 && paper[i][j + 1] == 0) {
+						sum += 1;
+					}
+					else if (paper[i + 1][j] == 0 && paper[i][j - 1] == 0) {
+						sum += 1;
+					}
+				}
+			}
+			
+		}
+	}
+	cout << sum << "\n";
+}
+
 int main(void) {
-	baek_10986();
+	baek_temp_2567();
 }
