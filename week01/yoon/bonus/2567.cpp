@@ -24,7 +24,7 @@ int is_outside(int x, int y){
 }
 
 int main(){
-    int n;
+    int n = 0;
     cin >> n;
 
     for(int i = 0; i < n; i++){
