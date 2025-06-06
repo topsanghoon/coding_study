@@ -21,9 +21,9 @@ int main(){
     }
     for(int i=1;i<=n;i++){
         int remain = arr[i];
-        remains[remain]++;
-        
+        remains[remain]++;    
     }
+
     long long ans = remains[0];
     for(int i=0; i<m; i++){
         if(remains[i]>1){
