@@ -11,7 +11,7 @@ int main(){
     cout.tie(0);
     
     int n;
-    cin >> n;// 
+    cin >> n;
     vector<int> arr = vector<int>(n,-1);
     stack<pair<int,int>> stk; // 저장된 수와 인덱스를 배열하는 스택 생성 
     int a;
