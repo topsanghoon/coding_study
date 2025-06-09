@@ -1,8 +1,0 @@
-﻿  main.cpp
-D:\c++_practice\c++_algorithm\week1\week1\main.cpp(25,19): warning C4244: '인수': 'int'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-          with
-          [
-              _Ty=float
-          ]
-D:\c++_practice\c++_algorithm\week1\week1\main.cpp(27,10): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  week1.vcxproj -> D:\c++_practice\c++_algorithm\week1\x64\Debug\week1.exe
