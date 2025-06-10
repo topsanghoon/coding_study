@@ -1,261 +1,314 @@
 #include <iostream>
 #include <vector>
+#include <queue>
+#include <deque>
+#include <set>
+
 using namespace std;
-void baek_11720(void) {
-	int count = 0;
-	cin >> count;
-	string num = "";
-	cin >> num;
 
-	int sum = 0;
-	for (int i = 0; i < count; i++) {
-		sum += num[i] - '0';
-		//		cout << num[i] << endl;
-	}
-	cout << sum << endl;
-}
-void baek_1546(void) {
-	int count = 0;
-	cin >> count;
-	int temp;
-	vector<float> array;
-	float max = 0;
-	for (int i = 0; i < count; i++) {
-		cin >> temp;
-		array.push_back(temp);
-		if (max < temp) {
-			max = temp;
-		}
-	}
-	float avg = 0;
-	for (int i = 0; i < count; i++) {
-		avg += array[i] / max * 100;
-	}
-	cout << avg / count;
-}
+void baek_1874(void) {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    int count = 0;
+    cin >> count;
 
-void baek_11659(void) {
-	ios::sync_with_stdio(false);
-	cin.tie(NULL);
-
-	int array_count = 0;
-	int count = 0;
-	cin >> array_count >> count;
-	vector<int> array(array_count + 1);
-	for (int i = 1; i < array_count + 1; i++) {
-		cin >> array[i];
-		array[i] = array[i] + array[i - 1];
-	}
-	int first, second;
-	for (int i = 0; i < count; i++) {
-		cin >> first >> second;
-		cout << array[second] - array[first - 1] << '\n';
-	}
+    vector<int> stack;
+    int target;
+    vector<int> target_collection;
+    vector<char> answer;
+    for (int i = 0; i < count; i++) {
+        cin >> target;
+        target_collection.push_back(target);
+    }
+    int start = 1;
+    for (int i = 0; i < count; i++) {
+        while (start <= target_collection[i]) {
+            stack.push_back(start);
+            answer.push_back('+');
+            start += 1;
+        }
+        if (stack.back() == target_collection[i]) {
+            stack.pop_back();
+            answer.push_back('-');
+        }
+        else {
+            cout << "NO";
+            return;
+        }
+    }
+    for (int i = 0; i < answer.size(); i++) {
+        cout << answer[i] << "\n";
+    }
 }
 
-void baek_11660(void) {
-	ios::sync_with_stdio(false);
-	cin.tie(NULL);
-	int size, count;
-	cin >> size >> count;
-	//size = 4;
-	//count = 3;
-	vector<vector<int>> A(size + 1, vector<int>(size + 1, 0));
-	/*A = {
-		{0, 0, 0, 0, 0},
-		{0, 1, 2, 3, 4},
-		{0, 2, 3, 4, 5},
-		{0, 3, 4, 5, 6},
-		{0, 4, 5, 6, 7}
-	};*/
-	for (int i = 1; i <= size; ++i) {
-		for (int j = 1; j <= size; ++j) {
-			cin >> A[i][j];
-		}
-	}
-	/*for (int i = 0; i <= size; ++i) {
-		for (int j = 0; j <= size; ++j) {
-			cout << A[i][j] << " ";
-		}
-		cout << '\n';
-	}*/
+void baek_17298(void) {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
 
-	for (int i = 1; i <= size; i++) {
-		for (int j = 1; j <= size; j++) {
-			if (j == 1) {
-				A[i][j] += A[i - 1][j];
-			}
-			else if (i == 1) {
-				A[i][j] += A[i][j - 1];
-			}
-			else {
-				A[i][j] += A[i][j - 1] + A[i - 1][j] - A[i - 1][j - 1];
-			}
-		}
-	}
-	/*for (int i = 0; i <= size; ++i) {
-		for (int j = 0; j <= size; ++j) {
-			cout << A[i][j] << " ";
-		}
-		cout << '\n';
-	}*/
-	int first, second, third, fourth;
-	for (int i = 0; i < count; i++) {
-		cin >> first >> second >> third >> fourth;
-		cout << A[third][fourth] - A[third][second - 1] - A[first - 1][fourth] + A[first - 1][second - 1] << '\n';
-	}
+    int count = 0;
+    cin >> count;
+    vector<int> input;
+    for (int i = 0; i < count; i++) {
+        int temp;
+        cin >> temp;
+        input.push_back(temp);
+    }
+    vector<int> stack;
+    vector<int> answer(count, -1);
+    for (int i = 0; i < count; i++) {
+        while (stack.size() > 0 && input[stack.back()] < input[i]) {
+            answer[stack.back()] = input[i];
+            stack.pop_back();
+        }
+        stack.push_back(i);
+    }
+    for (int i = 0; i < count; i++) {
+        cout << answer[i] << " ";
+    }
 }
 
-void baek_10986(void) {
-	ios::sync_with_stdio(false);
-	cin.tie(NULL);
-	int count, num;
-	cin >> count >> num;
-	vector<long long> array(count + 1, 0);
-	vector<long long> sectionSumArray(count + 1, 0);
-	vector<long long> etcArray(num, 0);
-	for (int i = 1; i <= count; i++) {
-		cin >> array[i];
-		sectionSumArray[i] = sectionSumArray[i - 1] + array[i];
-		etcArray[sectionSumArray[i] % num] += 1;
-	}
-	long long answer = 0;
-	for (int i = 0; i < num; i++) {
-		if (i == 0) {
-			answer += etcArray[0];
-		}
-		answer += etcArray[i] * (etcArray[i] - 1) / 2;
-	}
-	cout << answer << '\n';
+void baek_2164(void) {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    int count = 0;
+    cin >> count;
+    // vector<int> cards;
+    // for (int i = 1; i <= count; i++) {
+    //   cards.push_back(i);
+    // }
+    // while (cards.size() > 1) {
+    //   cards.erase(cards.begin());
+    //   int temp = cards[0];
+    //   cards.erase(cards.begin());
+    //   cards.push_back(temp);
+    // }
+    // cout << cards[0];
+    queue<int> cards;
+    for (int i = 1; i <= count; i++) {
+        cards.push(i);
+    }
+    while (cards.size() > 1) {
+        cards.pop();
+        int temp = cards.front();
+        cards.pop();
+        cards.push(temp);
+    }
+    cout << cards.front();
 }
 
-void baek_2563(void) {
-	ios::sync_with_stdio(false);
-	cin.tie(NULL);
-	int count = 0;
-	cin >> count;
-	int paper[100][100] = { 0, };
-	int x_pos = 0, y_pos = 0;
-	for (int i = 0; i < count; i++) {
-		cin >> x_pos >> y_pos;
-		for (int j = 0; j < 10; j++) {
-			for (int k = 0; k < 10; k++) {
-				paper[y_pos + j][x_pos + k] = 1;
-			}
-		}
-	}
-	int sum = 0;
-	for (int i = 0; i < 100; i++) {
-		for (int j = 0; j < 100; j++) {
-			if (paper[i][j]) {
-				sum += 1;
-			}
-		}
-	}
-	cout << sum << "\n";
+
+void baek_11286(void) {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    priority_queue<int> maxHeap; // 음수 삽입
+    priority_queue<int, vector<int>, greater<int>> minHeap; // 양수 삽입
+
+    int count = 0;
+    cin >> count;
+    int input = 0;
+    vector<int> answer;
+    int temp_m = 0;
+    int temp_p = 0;
+    for (int i = 0; i < count; i++) {
+        cin >> input;
+        if (input < 0) {
+            maxHeap.push(input);
+        }
+        else if (input == 0) {
+            if (maxHeap.empty() && minHeap.empty()) {
+                answer.push_back(0);
+            }
+            else if (maxHeap.empty()) {
+                temp_p = minHeap.top();
+                answer.push_back(temp_p);
+                minHeap.pop();
+            }
+            else if (minHeap.empty()) {
+                temp_m = maxHeap.top();
+                answer.push_back(temp_m);
+                maxHeap.pop();
+            }
+            else {
+                temp_m = maxHeap.top();
+                temp_p = minHeap.top();
+                if (abs(temp_m) > abs(temp_p)) {
+                    answer.push_back(temp_p);
+                    minHeap.pop();
+                }
+                /*else if (abs(temp_m) < abs(temp_p)) {
+                   answer.push_back(temp_m);
+                   maxHeap.pop();
+                }*/
+                else {
+                    answer.push_back(temp_m);
+                    maxHeap.pop();
+                }
+            }
+        }
+        else {
+            minHeap.push(input);
+        }
+    }
+
+    for (int i = 0; i < answer.size(); i++) {
+        cout << answer[i] << " ";
+    }
 }
 
-void baek_2567(void) {
-	ios::sync_with_stdio(false);
-	cin.tie(NULL);
-	int count = 0;
-	cin >> count;
-	int paper[100][100] = { 0, };
-	int x_pos = 0, y_pos = 0;
-	for (int i = 0; i < count; i++) {
-		cin >> x_pos >> y_pos;
-		for (int j = 0; j < 10; j++) {
-			for (int k = 0; k < 10; k++) {
-				paper[y_pos + j][x_pos + k] = 1;
-			}
-		}
-	}
-	/*for (int j = 0; j < 100; j++) {
-		for (int k = 0; k < 100; k++) {
-			cout << paper[j][k];
-		}
-		cout << "\n";
-	}*/
-	int sum = 0;
-	for (int i = 0; i < 100; i++) {
-		for (int j = 0; j < 100; j++) {
-			if (i == 0 || i == 99 || j == 0 || j == 99) {
-				if (paper[i][j] == 1) {
-					sum += 1;
-				}
-			}
-			else {
-				if (paper[i][j] == 1) {
-					if (paper[i - 1][j] == 0 || paper[i + 1][j] == 0 || paper[i][j - 1] == 0 || paper[i][j + 1] == 0) {
-						sum += 1;
-						if (paper[i - 1][j] == 0 && paper[i][j - 1] == 0) {
-							sum += 1;
-						}
-						else if (paper[i - 1][j] == 0 && paper[i][j + 1] == 0) {
-							sum += 1;
-						}
-						else if (paper[i + 1][j] == 0 && paper[i][j + 1] == 0) {
-							sum += 1;
-						}
-						else if (paper[i + 1][j] == 0 && paper[i][j - 1] == 0) {
-							sum += 1;
-						}
-					}
+// 회전초밥 (중)
+void jungol_2572_temp(void) {
+    int count = 0;
+    int kindOf = 0;
+    int serial = 0;
+    int coupon = 0;
 
-				}
-			}
-		}
-	}
-	cout << sum << "\n";
+    cin >> count >> kindOf >> serial >> coupon;
+
+    int foodmap[3001] = { 0, };
+
+    vector<int> food;
+    deque<int> check;
+
+    int foodtemp = 0;
+    int max = 0;
+    for (int i = 0; i < count; i++) {
+        cin >> foodtemp;
+        food.push_back(foodtemp);
+    }
+
+    for (int i = 0; i < count; i++) {
+        int isValid = 1;
+        check.push_back(food[i]);
+        foodmap[food[i]] += 1;
+        // 체크
+        for (int j = 0; j < check.size(); j++) {
+            if (foodmap[check[j]] != 1) {
+                isValid = 0;
+                break;
+            }
+        }
+
+        if (isValid == 1) {
+            if (max < check.size()) {
+                max = check.size();
+            }
+        }
+        else {
+            foodmap[check[0]] -= 1;
+            check.pop_front();
+        }
+    }
+    if (max > serial + 1) {
+        cout << serial + 1;
+    }
+    else cout << max;
+    //cout << max;
+
 }
 
-void baek_temp_2567(void) {
-	ios::sync_with_stdio(false);
-	cin.tie(NULL);
-	int count = 0;
-	cin >> count;
-	int paper[102][102] = { 0, };
-	int x_pos = 0, y_pos = 0;
-	for (int i = 0; i < count; i++) {
-		cin >> x_pos >> y_pos;
-		for (int j = 0; j < 10; j++) {
-			for (int k = 0; k < 10; k++) {
-				paper[y_pos + 1 + j][x_pos + 1 + k] = 1;
-			}
-		}
-	}
-	/*for (int j = 0; j < 100; j++) {
-		for (int k = 0; k < 100; k++) {
-			cout << paper[j][k];
-		}
-		cout << "\n";
-	}*/
-	int sum = 0;
-	for (int i = 0; i < 102; i++) {
-		for (int j = 0; j < 102; j++) {
-			if (paper[i][j] == 1) {
-				if (paper[i - 1][j] == 0 || paper[i + 1][j] == 0 || paper[i][j - 1] == 0 || paper[i][j + 1] == 0) {
-					sum += 1;
-					if (paper[i - 1][j] == 0 && paper[i][j - 1] == 0) {
-						sum += 1;
-					}
-					else if (paper[i - 1][j] == 0 && paper[i][j + 1] == 0) {
-						sum += 1;
-					}
-					else if (paper[i + 1][j] == 0 && paper[i][j + 1] == 0) {
-						sum += 1;
-					}
-					else if (paper[i + 1][j] == 0 && paper[i][j - 1] == 0) {
-						sum += 1;
-					}
-				}
-			}
+void jungol_2788(void) {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    int count = 0;
+    cin >> count;
+    vector<int> array;
+    int input;
+    for (int i = 0; i < count; i++) {
+        cin >> input;
+        array.push_back(input);
+    }
+    sort(array.begin(), array.end());
+    int answer = 0;
+    for (int i = 0; i < count - 2; i++) {
+        for (int j = i + 1; j < count - 1; j++) {
+            for (int k = i + 2; k < count; k++) {
+                if (((array[j] - array[i]) <= (array[k] - array[j])) && ((array[k] - array[j]) <= 2 * (array[j] - array[i]))) {
+                    answer += 1;
+                }
+            }
+        }
+    }
+    cout << answer << "\n";
+}
 
-		}
-	}
-	cout << sum << "\n";
+void jungol_2788_binSearch(void) {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    int result = 0;
+    vector<int> v;
+    int n;
+    cin >> n;
+    int point;
+    for (int i = 0; i < n; i++) {
+        cin >> point;
+        v.push_back(point);
+    }
+    sort(v.begin(), v.end());
+
+    int fir_dis;
+    for (int st = 0; st < n - 2; st++)
+        for (int mid = st + 1; mid < n - 1; mid++) {
+            fir_dis = v[mid] - v[st];
+            auto lower_it = lower_bound(v.begin(), v.end(), fir_dis + v[mid]);
+            auto upper_it = upper_bound(v.begin(), v.end(), 2 * fir_dis + v[mid]);
+            result += upper_it - lower_it;
+
+        }
+
+    cout << result;
+}
+
+void jungol_2572(void) {
+    int count = 0;
+    int kindOf = 0;
+    int serial = 0;
+    int coupon = 0;
+
+    cin >> count >> kindOf >> serial >> coupon;
+
+    int foodmap[3001] = { 0, };
+
+    vector<int> food;
+    deque<int> check;
+
+    int foodtemp = 0;
+    int max = 0;
+    int uniqueCount = 0;
+
+    for (int i = 0; i < count; i++) {
+        cin >> foodtemp;
+        food.push_back(foodtemp);
+    }
+
+    for (int i = 0; i < count + serial; i++) {
+
+        if (check.size() < serial) {
+            check.push_back(food[i % count]);
+            if (foodmap[food[i % count]] == 0) {
+                uniqueCount += 1;
+            }
+            foodmap[food[i % count]] += 1;
+        }
+        else {
+            if (foodmap[check.front()] == 1) {
+                uniqueCount -= 1;
+            }
+            foodmap[check.front()] -= 1;
+            check.pop_front();
+
+            check.push_back(food[i % count]);
+            foodmap[food[i % count]] += 1;
+            if (foodmap[food[i % count]] == 1) {
+                uniqueCount += 1;
+            }
+        }
+        int uniqueTemp = uniqueCount;
+        if (foodmap[coupon] == 0) uniqueTemp += 1;
+        if (max < uniqueTemp) max = uniqueTemp;
+    }
+    cout << max;
 }
 
 int main(void) {
-	baek_temp_2567();
+    jungol_2572();
 }
