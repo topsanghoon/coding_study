@@ -16,38 +16,41 @@ int main() {
         cin >> a[i];
     }
 
-    int ans = 0; // 현재 큐에 들어있는 초밥 종류의 수 (큐에 2,3,3,4가 들어있으면 종류의 수는 2,3,4 3개개)
-    int mx = 0; // ans의 최대값(정답)
+    int cnt = 0; // 현재 큐에 들어있는 초밥 종류의 수 (큐에 2,3,3,4가 들어있으면 종류의 수는 [2,3,4] 3개)
+    
     
     chobab[c]++; // 쿠폰 처리
-    ans++;
+    cnt++;
     
     for(int i=0;i<k;i++){
         if(chobab[a[i]]==0){ // 해당하는 번호의 초밥이 큐에 들어있지 않으면
-            ans++;
+            cnt++;
         }
         chobab[a[i]]++;
         q.push(a[i]);
     }
-    if(mx < ans){
-        mx = ans;
-    }
+
+    int mx = cnt; // cnt의 최대값(정답)
+    
     for(int i=0;i<n;i++){
         
         int qfront = q.front();
+
         if(chobab[qfront]==1){ // qfront번 초밥이 하나밖에 없으면
-            ans--;
+            cnt--;
         }
         q.pop();
         chobab[qfront]--;
+
         int idx = (i+k)%n;
         if(chobab[a[idx]]==0){
-            ans++;
+            cnt++;
         }
         chobab[a[idx]]++;
         q.push(a[idx]);
-        if(mx < ans){
-            mx = ans;
+
+        if(mx < cnt){
+            mx = cnt;
         }
     }
     
