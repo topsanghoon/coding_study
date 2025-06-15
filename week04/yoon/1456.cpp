@@ -4,15 +4,15 @@
 
 using namespace std;
 
-vector <int> priority;
-void priority_map(int m){
+vector <bool> priority;
+void priority_map(int m){    //소수를 구하는 함수
     priority.resize(m, 1);
 
-    priority[0] = 0, priority[1] = 0;
-    for(int i = 2; i < m; i++){
-        if(priority[i] == 0) continue;
-        for(int j = 2 * i; j < m; j += i){
-              priority[j] = 0;
+    priority[0] = false, priority[1] = false;
+    for(int i = 2; i*i <m; i++){
+        if(priority[i] == false) continue;
+        for(int j = i * i; j < m; j += i){
+              priority[j] = false;
         }
     }
 }
@@ -21,7 +21,7 @@ int main(){
     long long a, b;
     cin >> a >>  b;
 
-    int end = (int)sqrt(b) + 2;
+    int end = (int)sqrt(b) + 2;   //소수가 가질 수 있는 범위는 오른쪽 범위의 Sqrt 정도
     
     priority_map(end);
 
@@ -29,7 +29,7 @@ int main(){
     for(long long i = 2; i < end; i++){
         if(priority[i] == 1){
             for(long long j = 2; 1; j++){
-                if(pow(i, j) > b) break; 
+                if(pow(i, j) > b) break;      // 소수들의 제곱들을 순회하면서 비교
                 if(pow(i, j) >= a) result++;
             }
         }

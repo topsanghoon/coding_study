@@ -12,18 +12,27 @@ int main(){
     int n = 0;
     cin >> n;
 
-    vector <pair<int, int>> cor;
+    vector <pair <int, int>> list;
     for(int i = 0; i < n; i++){
-        int x, y;
-        cin >> x >> y;
-        cor.push_back({x,y});
+        int temp = 0;
+        cin >> temp;
+
+        list.push_back({temp, i});
     }
 
-    sort(cor.begin(), cor.end());
+    sort(list.begin(), list.end());
 
-    for(int i = 0; i < n; i++){
-        cout << cor[i].first << " " << cor[i].second << "\n";
+    vector <int> result(n);
+    int current = -1;
+    int toggle = 1.1e9;
+    for(int i = 0; i< n; i ++){
+        
+        if(toggle != list[i].first) current++;
+        result[list[i].second] = current;
+        toggle = list[i].first;
     }
+
+    for(int i = 0; i < n; i++) cout << result[i] << " ";
 
     return 0;
 }

@@ -3,27 +3,30 @@
 
 using namespace std;
 
-vector <int> priority;
-void priority_map(int m){
+vector <bool> priority;
+void priority_map(int m){    //소수를 구하는 함수
     priority.resize(m, 1);
 
-    priority[0] = 0, priority[1] = 0;
-    for(int i = 2; i < m; i++){
-        if(priority[i] == 0) continue;
-        for(int j = 2 * i; j < m; j += i){
-              priority[j] = 0;
+    priority[0] = false, priority[1] = false;
+    for(int i = 2; i*i <m; i++){
+        if(priority[i] == false) continue;
+        for(int j = i * i; j < m; j += i){
+              priority[j] = false;
         }
     }
 }
 
 int main(){
+    cin.tie(NULL);
+    ios::sync_with_stdio(false);
+
     int n, m;
     cin >> n >>  m;
 
     priority_map(m+2);
 
     for(int i = n; i <= m; i++){
-        if(priority[i] == 1) cout << i << "\n";
+        if(priority[i] == true) cout << i << "\n";
     }
     
     return 0;

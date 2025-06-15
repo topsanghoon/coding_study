@@ -4,21 +4,20 @@
 #include <string>
 #include <algorithm>
 
-#define end_v 1003002
+#define end_v 1003002  
+							//디버깅을 통해 찾은 최대의 소수이며 팰린드롬 수는 1003001
 
 using namespace std;
 
-vector <int> priority;
-
-
-void priority_map(int m){
+vector <bool> priority;
+void priority_map(int m){    //소수를 구하는 함수
     priority.resize(m, 1);
 
-    priority[0] = 0, priority[1] = 0;
-    for(int i = 2; i < m; i++){
-        if(priority[i] == 0) continue;
-        for(int j = 2 * i; j < m; j += i){
-              priority[j] = 0;
+    priority[0] = false, priority[1] = false;
+    for(int i = 2; i*i <m; i++){
+        if(priority[i] == false) continue;
+        for(int j = i * i; j < m; j += i){
+              priority[j] = false;
         }
     }
 }
@@ -33,11 +32,11 @@ int main(){
 
     priority_map(end_v);
 
-    for(int i = n; i <= end_v; i++){
-        if(priority[i] == 1){
-            string ori = to_string(i);
-            string rev = ori;
-            reverse(rev.begin(), rev.end());
+    for(int i = n; i < end_v; i++){
+        if(priority[i] == true){
+            string ori = to_string(i);    //문자열로 바꾸고
+            string rev = ori;     
+            reverse(rev.begin(), rev.end());  //문자열을 뒤집어서 비교
             if(ori == rev) {
                 cout << i;
                 break;
