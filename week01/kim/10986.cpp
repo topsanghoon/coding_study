@@ -21,9 +21,9 @@ int main(){
     }
     for(int i=1;i<=n;i++){
         int remain = arr[i];
-        remains[remain]++;
-        
+        remains[remain]++;    
     }
+
     long long ans = remains[0];
     for(int i=0; i<m; i++){
         if(remains[i]>1){
@@ -33,3 +33,6 @@ int main(){
     cout<<ans<<'\n';
     return 0;
 }
+
+//main 브랜치
+//kim 브랜치
