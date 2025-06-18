@@ -51,3 +51,28 @@ void jungol_1695(void) {
 		cout << answer[i] << "\n";
 	}
 }
+
+// 소수 구하기
+bool isPrime(int num) {
+	if (num == 1) return false;
+	for (int i = 2; i <= (int)sqrt(num); i++) {
+		if (num % i == 0) return false;
+	}
+	return true;
+}
+
+void baek_1929(void) {
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+
+	int lower, higher;
+
+	cin >> lower >> higher;
+	vector<int> answer;
+	for (int i = lower; i <= higher; i++) {
+		//if (isPrime(i)) answer.push_back(i);
+		if (isPrime(i)) {
+			cout << i << "\n";
+		}
+	}
+}
