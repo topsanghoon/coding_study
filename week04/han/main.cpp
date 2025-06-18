@@ -76,3 +76,43 @@ void baek_1929(void) {
 		}
 	}
 }
+
+// 거의 소수 구하기
+void baek_1456(void) {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+
+	long long lower, higher;
+
+	cin >> lower >> higher;
+
+	int limit = (int)sqrt(higher);
+	vector<bool> num_map(limit + 1, true);
+	num_map[0] = false;
+	num_map[1] = false;
+
+	int answer = 0;
+
+	for (int i = 2; i <= limit; i++) {
+		if (num_map[i]) {
+			for (int j = i * 2; j <= limit; j += i) {
+				num_map[j] = false;
+			}
+		}
+	}
+
+	for (int i = 2; i <= limit; i++) {
+		if (num_map[i]) {
+			long long value = (long long)i * i;
+			while (value <= higher) {
+				if (value >= lower) {
+					answer += 1;
+				}
+				if (value > higher / i) break;
+				value *= i;
+			}
+		}
+	}
+
+	cout << answer;
+}
