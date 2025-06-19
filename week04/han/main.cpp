@@ -216,3 +216,48 @@ void baek_18870(void) {
 		cout << answer[i] - 1 << " ";
 	}
 }
+
+// 해밀턴 순환회로
+int visited_1681[14] = { 0, };
+int gmin = 13001;
+int length;
+int gDepth;
+vector<int> answer;
+
+void dfs_1681(const vector<vector<int>>& tArray, int target, int cValue, int depth) {
+	if (depth == gDepth) {
+		if (tArray[target][1] != 0) {
+			int temp = cValue;
+			temp += tArray[target][1];
+			if (temp < gmin) gmin = temp;
+		}
+		return;
+	}
+	if (cValue > gmin) return;
+	for (int i = 2; i <= gDepth; i++) {
+		if (visited_1681[i]) continue;
+		if (tArray[target][i] == 0) continue;
+		if (i == target) continue;
+		if (visited_1681[i] == 0) { 
+			visited_1681[i] = 1; 
+			dfs_1681(tArray, i, cValue + tArray[target][i], depth + 1);
+			visited_1681[i] = 0;
+		}
+	}
+}
+
+void jungol_1681(void) {
+	cin >> length;
+	gDepth = length;
+
+	vector<vector<int>> array(length+1, vector<int>(length+1, 0));
+	for (int i = 1; i <= length; i++) {
+		for (int j = 1; j <= length; j++) {
+			cin >> array[i][j];
+		}
+	}
+	visited_1681[1] = 1;
+	dfs_1681(array, 1, 0, 1);
+	cout << gmin;
+
+}
