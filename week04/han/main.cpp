@@ -116,3 +116,56 @@ void baek_1456(void) {
 
 	cout << answer;
 }
+
+// 소수 및 팰린드롬 수 구하기
+void baek_1747(void) {
+	
+	vector<bool> array(2000000 + 1, 1);
+	//vector<bool> array(10000 + 1, 1);
+	array[0] = false;
+	array[1] = false;
+	for (long long i = 2; i < array.size(); i++) {
+		if(array[i]){
+			for (int j = 2*i; j < array.size(); j += i) {
+				array[j] = false;
+			}
+		}
+	}
+
+	/*for (int i = 2; i * i <= array.size(); i++) {
+		if (array[i]) {
+			for (int k = i * i; k <= array.size(); k += i) {
+				array[k] = false;
+			}
+		}
+	}*/
+
+	/*for (int i = 0; i < array.size(); i++) {
+		cout << array[i] << " ";
+		if (i % 1000 == 0) cout << "\n";
+	}*/
+
+	int lower;
+	cin >> lower;
+	int higher = 0;
+	//cout << array.size() << "\n";
+	for (int i = lower; i < array.size(); i++) {
+		if (array[i] == true) {
+			string temp = to_string(i);
+			int tempSize = temp.size();
+			bool check = true;	
+			for (int j = 0; j < tempSize/2; j++) {
+				if (temp[j] != temp[tempSize - j-1]) {
+					check = false;
+					break;
+				}
+			}
+			
+			if (check == true) {
+				higher = i;
+				break;
+			}
+		}
+	}
+	cout << higher;
+}
