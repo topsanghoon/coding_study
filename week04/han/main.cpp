@@ -169,3 +169,21 @@ void baek_1747(void) {
 	}
 	cout << higher;
 }
+
+// 좌표 정렬하기
+void baek_11650(void) {
+	int count;
+	cin >> count;
+	vector<pair<int, int> > array;
+
+	int first, second;
+	for (int i = 0; i < count; i++) {
+		cin >> first >> second;
+		array.push_back(make_pair(first, second));
+	}
+
+	sort(array.begin(), array.end());
+	for (int i = 0; i < count; i++) {
+		cout << array[i].first << " " << array[i].second << "\n";
+	}
+}
