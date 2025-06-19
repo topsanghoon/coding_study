@@ -327,3 +327,41 @@ void jungol_1078(void) {
 	}
 	cout << alive;
 }
+
+// 벽장문 이용
+int glength;
+int gMin = 0x7FFFFFFF;
+void dfs_1409(vector<int> &tArray, int length, int present_first, int present_second, int curIndex, int cCost) {
+	if (cCost > gMin) return;
+	if (length == glength) {
+		if (cCost < gMin) {
+			gMin = cCost;
+		}
+		return;
+	}
+
+	int target = tArray[curIndex];
+
+	dfs_1409(tArray, length + 1, target, present_second, curIndex + 1, cCost + abs(target - present_first));
+	dfs_1409(tArray, length + 1, present_first, target, curIndex + 1, cCost + abs(target - present_second));
+
+}
+
+void jungol_1409(void) {
+	int array_length;
+	cin >> array_length;
+	vector<int> array(array_length+1, 0);
+	int first, second;
+	cin >> first >> second;
+	int qCount;
+	cin >> qCount;
+	glength = qCount;
+	vector<int> qArray(qCount, 0);
+	for (int i = 0; i < qCount; i++) {
+		cin >> qArray[i];
+	}
+
+	dfs_1409(qArray, 0, first, second, 0, 0);
+
+	cout << gMin;
+}
