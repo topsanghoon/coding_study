@@ -261,3 +261,69 @@ void jungol_1681(void) {
 	cout << gmin;
 
 }
+
+// 저글링 방사능 오염
+struct zuggling_point {
+	int zRow;
+	int zColumn;
+	int pollution_count;
+};
+
+int bfs_1078(vector<vector<int>>& array, int start_column, int start_row) {
+	int dx[4] = { 1, 0, -1, 0 };
+	int dy[4] = { 0, 1, 0, -1 };
+	queue<zuggling_point> bfs_queue;
+	zuggling_point init;
+	init.zColumn = start_column;
+	init.zRow = start_row;
+	init.pollution_count = 3;
+	array[start_row][start_column] = init.pollution_count;
+	bfs_queue.push(init);
+	int timeMax = 3;
+	while (!bfs_queue.empty()) {
+		zuggling_point popTop;
+		popTop = bfs_queue.front();
+		bfs_queue.pop();
+
+		for (int i = 0; i < 4; i++) {
+			int after_dx = popTop.zRow + dx[i];
+			int after_dy = popTop.zColumn + dy[i];
+			if (array[after_dx][after_dy] == 1) {
+				zuggling_point temp;
+				temp.zRow = after_dx;
+				temp.zColumn = after_dy;
+				array[after_dx][after_dy] = array[popTop.zRow][popTop.zColumn] + 1;
+				if (timeMax < array[after_dx][after_dy]) timeMax = array[after_dx][after_dy];
+				bfs_queue.push(temp);
+			}
+		}
+	}
+	return timeMax;
+}
+
+void jungol_1078(void) {
+	int column, row;
+	cin >> column >> row;
+	vector<vector<int>> array(row+2,vector<int>(column+2,0));
+	for (int i = 1; i <= row; i++) {
+		string line;
+		cin >> line;
+		for (int j = 1; j <= column; j++) {
+			array[i][j] = line[j-1] - '0';
+		}
+	}
+	
+	int pollution_column, pollution_row;
+	cin >> pollution_column >> pollution_row;
+
+	cout << bfs_1078(array, pollution_column, pollution_row) << "\n";
+	int alive = 0;
+	for (int i = 1; i <= row; i++) {
+		for (int j = 1; j <= column; j++) {
+			if (array[i][j] == 1) {
+				alive += 1;
+			}
+		}
+	}
+	cout << alive;
+}
