@@ -187,3 +187,32 @@ void baek_11650(void) {
 		cout << array[i].first << " " << array[i].second << "\n";
 	}
 }
+
+// 좌표 압축하기
+void baek_18870(void) {
+	int count = 0;
+	cin >> count;
+	vector<int> array;
+	set<int> setArray;
+	for (int i = 0; i < count; i++) {
+		int temp;
+		cin >> temp;
+		array.push_back(temp);
+		setArray.insert(temp);
+	}
+
+	unordered_map<int, int> pointMap;
+	int index = 1;
+	for (set<int>::iterator iter = setArray.begin(); iter != setArray.end(); iter++) {
+		pointMap.insert(make_pair(*iter, index));
+		index += 1;
+	}
+
+	vector<int> answer;
+	for (int i = 1; i <= count; i++) {
+		answer.push_back(pointMap[array[i - 1]]);
+	}
+	for (int i = 0; i < answer.size(); i++) {
+		cout << answer[i] - 1 << " ";
+	}
+}
