@@ -15,10 +15,6 @@ int main(){
 
     int cnt = 0;
 
-    // for(int i = 0; i > n; i++){
-    //     cout << bills[i];
-    // }
-
     for(int i = 0; i < n; i++){
         if(k == 0) break;
         if(k / bills[i] > 0) {
