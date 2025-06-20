@@ -365,3 +365,81 @@ void jungol_1409(void) {
 
 	cout << gMin;
 }
+
+// https://jungol.co.kr/problem/1111?cursor=MTAsNiwx
+// 등산로 ckwrl
+struct postion {
+   int posX;
+   int posY;
+};
+
+void bfs_1111(vector<vector<int>> &tarray, vector<vector<int>>& costArray, int length, int topx, int topy) {
+   int dx[4] = {1,0,-1,0};
+   int dy[4] = {0,1,0,-1};
+   queue<postion> pos;
+
+   postion top;
+   top.posX = topx;
+   top.posY = topy;
+   costArray[topx][topy] = 0;
+   pos.push(top);
+
+   while (!pos.empty()) {
+      postion temp = pos.front();
+      pos.pop();
+      for (int i = 0; i < 4; i++) {
+         int afterX = temp.posX + dx[i];
+         int afterY = temp.posY + dy[i];
+         int tempCost = costArray[temp.posX][temp.posY];
+         if (afterX >= 0 && afterX <= length-1 && afterY >= 0 && afterY <= length - 1) {
+            if (tarray[temp.posX][temp.posY] > tarray[afterX][afterY]) {
+               tempCost +=((tarray[temp.posX][temp.posY] - tarray[afterX][afterY]) * (tarray[temp.posX][temp.posY] - tarray[afterX][afterY]));
+            }
+            else if (tarray[temp.posX][temp.posY] < tarray[afterX][afterY]) {
+               tempCost += (tarray[afterX][afterY] - tarray[temp.posX][temp.posY]);
+            }
+            /*else if (tarray[temp.posX][temp.posY] == tarray[afterX][afterY]) { // 실수한 곳
+               tempCost = tarray[temp.posX][temp.posY];
+            }*/
+            if (costArray[afterX][afterY] > tempCost) {
+               costArray[afterX][afterY] = tempCost;
+               postion updatePos;
+               updatePos.posX = afterX;
+               updatePos.posY = afterY;
+               pos.push(updatePos);
+            }
+         }
+      }
+   }
+}
+
+void jungol_1111(void){
+int length;
+   cin >> length;
+   int topX, topY;
+   cin >> topX >> topY;
+   vector<vector<int>> array(length + 2, vector<int>(length + 2, 0));
+   vector<vector<int>> costArray(length+2, vector<int>(length+2, 0x7FFFFFF));
+   /*for (int i = 0; i < length + 2; i++) {
+      for (int j = 0; j < length + 2; j++) {
+         if(i == 0 || j==0 || i == length+1 || j == length +1){
+            costArray[i][j] = 0;
+         }
+      }
+   }*/
+   for (int i = 1; i < length + 1; i++) {
+      for (int j = 1; j < length + 1; j++) {
+         cin >> array[i][j];
+      }
+   }
+
+   bfs_1111(array, costArray, length + 2, topX, topY);
+
+   /*for (int i = 0; i < length + 2; i++) {
+      for (int j = 0; j < length + 2; j++) {
+         cout << costArray[i][j] << " ";
+      }
+      cout << "\n";
+   }*/
+   cout << costArray[0][0];
+}
