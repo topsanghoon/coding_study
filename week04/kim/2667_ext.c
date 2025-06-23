@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-int** graph;
+int* graph;
 int* ans = NULL;
 int n;
 
@@ -14,7 +14,7 @@ int main() {
 
     scanf("%d ",&n);
     
-    graph = (int**)malloc((n+2)*sizeof(int*));
+    graph = (int*)malloc((n+2)*sizeof(int*));
     if(graph == NULL){
         free(graph);
         exit(1);
@@ -93,13 +93,8 @@ int dfs(int y, int x){
 
 void memRelease(){
 
-    if(ans != NULL) {
-        free(ans);
-        ans = NULL;
-    }
-
-    if(graph == NULL) continue;
-    
+    free(ans);
+    if(graph==NULL) return;
     for (int i = 0; i < n+2; i++) {
         free(graph[i]);
     }
