@@ -12,6 +12,8 @@ vector<int> dp;
 
 count를 써서 1로 도달하는 중에 관찰할수 있는 변수를 지정해 dp벡터 최소예정값과 비교함으로써
 가지치기를 할수 있다. ->메모리 아끼기 
+
+메모리: 29244kb  시간 32ms
 */
 
 int dfs(int num , int count){
