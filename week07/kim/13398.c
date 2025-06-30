@@ -23,10 +23,9 @@ int main() {
     }
     
     for(int i=2;i<=n;i++){
-        sum_arr[i] = MAX(sum_arr[i-1]+arr[i],arr[i]);
-        dp[i] = MAX(dp[i-1]+arr[i],MAX(sum_arr[i], sum_arr[i-1]));
-        //printf("%d %d %d\n",dp[i-1]+arr[i],sum_arr[i],sum_arr[i-1]);
-        ans = MAX(ans,dp[i]);
+        sum_arr[i] = MAX(sum_arr[i-1]+arr[i],arr[i]); // sum_arr -> 수열에서 정수를 빼지 않았을때의 연속합의 최대값
+        dp[i] = MAX(dp[i-1]+arr[i],MAX(sum_arr[i], sum_arr[i-1])); // dp -> 수열에서 정수를 하나 빼거나, 빼지 않았을 때 연속합의 최대값
+        ans = MAX(ans,dp[i]); 
     }
 
     printf("%d\n",ans);
