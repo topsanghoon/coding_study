@@ -54,10 +54,10 @@ int main() {
         }
     }
     int start,end;
-    scanf("%d ",&start);
-    for(int i=2;i<=m;i++){
-        scanf("%d ",&end);
-        if(!is_equal_root(start,end)){
+    scanf("%d ",&start);// 시작위치를 받음
+    for(int i=2;i<=m;i++){ 
+        scanf("%d ",&end); // 다음 위치를 입력받음
+        if(!is_equal_root(start,end)){ // 둘이 연결되어있는지 확인
             printf("NO\n");
             return 0;
         }
