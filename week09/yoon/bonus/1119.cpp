@@ -1,65 +1,68 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <unordered_set>
 #include <unordered_map>
 
 using namespace std;
 
-vector<int> parent;
-int findp(int x)
-{ 
-    return parent[x] == x ? x : parent[x] = findp(parent[x]); 
+vector <int> graph;
+int find(int x){
+    if(graph[x] == x) return x;
+    return graph[x] = find(graph[x]);
 }
 
-void uni(int a,int b)
-{ 
-    a=findp(a);
-    b=findp(b); 
-    if(a!=b) parent[a]=b; 
+void merge(int a, int b){
+    int pa = find(a);
+    int pb = find(b);
+    if(pa != pb) graph[pa] = pb;
 }
 
 int main(){
-  int n; cin>>n;
-  parent.resize(n);
-  for(int i=0;i<n;i++) parent[i]=i;
 
-  vector<string> G(n);
-  for(int i=0;i<n;i++) cin>>G[i];
+    int n;
+    cin >> n;
+    graph.resize(n);
 
-  for(int i=0;i<n;i++)
-    for(int j=0;j<n;j++)
-      if(G[i][j]=='Y') uni(i,j);
+    for(int i = 0; i < n; i++)graph[i] = i;
 
-  unordered_map<int, vector<pair<int,int>>> comp; 
-
-
-  int cnt_line = 0;
-  for(int i=0;i<n;i++)
-    for(int j=i+1;j<n;j++)
-      if(G[i][j]=='Y'){
-        cnt_line++;
-        int r = findp(i);
-        comp[r].push_back({i,j});
-      }
-
-  int cnt_group = comp.size();
-  int total_surplus = 0;
-  for(auto &kv : comp){
-    int sz = 0;
-    unordered_set<int> nodes;
-    for(auto &e : kv.second){
-      nodes.insert(e.first);
-      nodes.insert(e.second);
+    vector <string> connected (n);
+    for(int i = 0; i < n; i++) {
+        cin >> connected[i];
     }
-    sz = nodes.size();
-    int edges = kv.second.size();
-    total_surplus += edges - (sz - 1);
-  }
 
-  if(cnt_line < n - 1 || total_surplus < cnt_group - 1){
-    cout << -1;
-  } else {
-    cout << cnt_group - 1;
-  }
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n; j++){
+            if(connected[i][j] == 'Y') merge(i, j);
+        }
+    }  
+
+    unordered_map <int, int> group;
+    int cnt_group = 0;
+    //몇개의 그룹이 있고, 각각 몇개의 선을 가지고 있는지 확인
+    for(int i = 0; i < n; i++){
+        int temp = find(i);
+        if(group.find(temp) == group.end()){
+            group[temp] = 0;
+            cnt_group++;
+        }
+        group[temp]++;
+    }
+
+    int necessary = cnt_group - 1;
+    for (auto& [rep, size] : group) {
+        necessary += (size - 1);
+    }
+
+    int cnt_line = 0;
+    for(int i = 0; i < n; i++){
+        for(int j = i + 1; j < n; j++){
+            if(connected[i][j] == 'Y') cnt_line++;
+        }
+    }
+
+    if(necessary <= cnt_line) cout << (cnt_group - 1);
+    else cout << -1;
+     
+
+    return 0;
 }
