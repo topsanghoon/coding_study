@@ -31,7 +31,7 @@ int main(){
     }
 
     for(int i = 0; i < n; i++){
-        for(int j = 0; j < n; j++){
+        for(int j = i + 1; j < n; j++){
             if(connected[i][j] == 'Y') merge(i, j);
         }
     }  
@@ -50,7 +50,12 @@ int main(){
 
     int necessary = cnt_group - 1;
     for (auto& [rep, size] : group) {
+        if(size == 1 && cnt_group > 1){
+            cout << -1;
+            return 0;
+        }
         necessary += (size - 1);
+        //cout << size << endl;
     }
 
     int cnt_line = 0;
@@ -59,6 +64,8 @@ int main(){
             if(connected[i][j] == 'Y') cnt_line++;
         }
     }
+
+    //cout << cnt_line << "  " << necessary << endl;
 
     if(necessary <= cnt_line) cout << (cnt_group - 1);
     else cout << -1;
