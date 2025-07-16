@@ -26,7 +26,7 @@ int main(){
     int current_n = 63;
     ll current = 1LL << 62;
     while(B != 0){
-        while(B - current >= 0){
+        if(B - current >= 0){
             //cout << B << "    "  << current  << "    " << current_n << "  ";
             B -= current;
             answer = (answer * DP[current_n]) % C;

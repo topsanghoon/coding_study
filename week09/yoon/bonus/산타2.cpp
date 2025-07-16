@@ -249,7 +249,7 @@ int main() {
             cin >> target;
             request_600(target);
         }
-        //print_all();
+        print_all(); //프린트 함수
     }
     return 0;
 }
