@@ -6,7 +6,6 @@ using namespace std;
 vector<vector<int>> graph;
 vector<int> entries;
 vector<int> answer;
-vector<bool> visited;
 int main(){
 
     int v,e;
@@ -16,9 +15,8 @@ int main(){
     graph = vector<vector<int>>(v+1,vector<int>());
     entries = vector<int>(v+1,0);
     answer = vector<int>(v,0);
-    visited = vector<bool>(v+1,0);
     int s,ed;
-    for(int i=0;i<ed;i++){
+    for(int i=0;i<e;i++){
         cin >> s >> ed;
         graph[s].push_back(ed);
         entries[ed]++;
@@ -36,7 +34,6 @@ int main(){
     
     for(int i=1;i<=v;i++){
         if(entries[i]==0){
-            visited[i] = true;
             q.push(i);
         }
     }
@@ -49,9 +46,8 @@ int main(){
 
         for(int nd : graph[qf]){
             entries[nd]--;
-            if(entries[nd]==0 && !visited[nd]){
+            if(entries[nd]==0 ){
                 q.push(nd);
-                visited[nd] = true;
             }
         }
     }
