@@ -7,5 +7,6 @@
         "queue": "cpp",
         "utility": "cpp",
         "tuple": "cpp"
+        "xutility": "cpp"
     }
 }
