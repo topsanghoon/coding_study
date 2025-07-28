@@ -1,0 +1,39 @@
+//https://www.acmicpc.net/problem/1766
+#include <iostream>
+#include <vector>
+#include <queue>
+using namespace std;
+int N,M;
+int main() {
+    cin>>N>>M;
+    vector<vector<int>> map(N+1);
+    vector<int> degree(N+1,0);
+    for(int i=0;i<M;i++){
+        int tmp,tmp1;
+        cin>>tmp>>tmp1;
+        map[tmp].push_back(tmp1);
+        degree[tmp1]++;
+    }
+    //queue<int> q;
+    priority_queue<int, vector<int>, greater<int>> pq;
+    for(int i=1;i<N+1;i++){
+        if(degree[i]==0){
+            //q.push(i);    
+            pq.push(i);
+        } 
+    }
+
+    for(int i=1;i<N+1;i++){
+        //int num=q.front(); q.pop();
+        int num=pq.top(); pq.pop();
+        cout<<num<<" ";
+        for(int j=0;j<map[num].size();j++){
+            int new_num=map[num][j];
+            degree[new_num]--;
+            if(degree[new_num]==0) pq.push(new_num);
+        }
+    }
+    
+    
+    return 0;
+}
