@@ -23,9 +23,7 @@ bool dfs(int start, int origin_start){
     }
 
     
-    bool ret = dfs(graph[start],origin_start);
-    visited[graph[start]] = true;
-    
+    bool ret = dfs(graph[start],origin_start);    
     return ret;
 }
 
