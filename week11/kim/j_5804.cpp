@@ -34,8 +34,6 @@ int main(){
     int s = 0;
     int e = arr[n-1];
 
-    canPlant(3);
-
     int mid;
     int ans = 0;
     while(s<=e){
