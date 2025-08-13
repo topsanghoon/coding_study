@@ -11,11 +11,6 @@ void rotate_belt_and_robots(int &UP, int &DOWN, int n, vector<int> &Robots) {
     UP   = (UP   - 1 + m) % m;
     DOWN = (DOWN - 1 + m) % m;
 
-    // for (int &pos : Robots) {
-    //     pos = (pos - 1 + m) % m;
-    // }
-
-    // 회전 후 가장 오래된 로봇이 DOWN에 있으면 바로 내림
     if (!Robots.empty() && Robots.front() == DOWN) {
         Robots.erase(Robots.begin());
     }
@@ -85,6 +80,6 @@ int main() {
         step++;
     }
 
-    cout << step << '\n';
+    cout << step;
     return 0;
 }
