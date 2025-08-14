@@ -50,13 +50,13 @@ int main(){
         }
     }
 
-    // for(int i = 1; i <= n; i++){
-    //     cout << WeightToIdx[Weights[i]] << "   ";
-    //     for(int j = 0; j <= n; j++){
-    //         cout << answer[i][j] << " ";
-    //     }
-    //     cout << endl;
-    // }
+    for(int i = 1; i <= n; i++){
+        cout << WeightToIdx[Weights[i]] << "   ";
+        for(int j = 0; j <= n; j++){
+            cout << answer[i][j] << " ";
+        }
+        cout << endl;
+    }
 
     int target;
     for(int i = n; i > 0; i--){
