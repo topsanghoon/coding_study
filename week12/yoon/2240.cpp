@@ -48,7 +48,7 @@ int main(){
     // for(int i = 0; i <= W; i++){
     //     for(int j = 0; j <= T; j++){
     //         cout << jadus_dp[i][j][1] << " ";
-    //     }
+    //     }~
     //     cout << endl;
     // }
 
