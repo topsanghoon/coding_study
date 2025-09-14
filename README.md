@@ -65,7 +65,7 @@
 |--------|-------------------------------------------------------------|----------------------------|
 | 윤상훈 | [github.com/topsanghoon](https://github.com/topsanghoon)   | topsanghoon1@gmail.com     |
 | 김태현 | [github.com/SnowMate318](https://github.com/SnowMate318)   | xogus5070318@gmail.com     |
-| 조재훈 |                                                             |                            |
-| 한제범 |                                                             |                            |
+| 조재훈 | [github.com/Hoon-danbi](https://github.com/Hoon-danbi)    | chojh000@naver.com      |
+| 한제범 | [github.com/JeBeomHan](https://github.com/JeBeomHan)    | brian981102@naver.com        |
 
 ---
